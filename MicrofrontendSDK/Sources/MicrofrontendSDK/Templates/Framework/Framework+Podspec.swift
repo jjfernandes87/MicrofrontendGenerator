@@ -10,10 +10,10 @@ extension FrameworkTemplates {
               spec.name = '\(podName)'
               spec.version = '0.1.0'
               spec.summary = 'Micro feature description.'
-              spec.homepage = 'https://xpi.com.br'
+              spec.homepage = 'https://github.com/jjfernandes87/MicrofrontendGenerator'
               spec.author = { 'Framework Author' => "author@email.com" }
               spec.license = { :type => 'Private' }
-              spec.source = { :git => 'https://xpinvestimentos.visualstudio.com/Projetos/_git/XPInc.AppGlobal.iOS',
+              spec.source = { :git => 'https://github.com/jjfernandes87/MicrofrontendGenerator',
                               :tag => spec.version.to_s }
 
               spec.ios.deployment_target = '11.0'

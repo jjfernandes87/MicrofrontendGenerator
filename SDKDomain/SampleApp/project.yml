@@ -46,22 +46,6 @@ targets:
       base:
         INFOPLIST_FILE: SampleApp/Info.plist
       
-      configs:
-        Release:
-          PRODUCT_BUNDLE_IDENTIFIER: br.com.xpi.sample-app
-          CODE_SIGN_IDENTITY: "Apple Distribution: TECFINANCE INFORMATICA E PROJETOS DE SISTEMAS LTDA (A9VWLHHDRZ)"
-          PROVISIONING_PROFILE_SPECIFIER: "match AppStore br.com.xpi.sample-app"
-
-        Adhoc:
-          PRODUCT_BUNDLE_IDENTIFIER: br.com.xpi.sample-app
-          CODE_SIGN_IDENTITY: "Apple Distribution: TECFINANCE INFORMATICA E PROJETOS DE SISTEMAS LTDA (A9VWLHHDRZ)"
-          PROVISIONING_PROFILE_SPECIFIER: "match AdHoc br.com.xpi.sample-app"
-
-        Debug:
-          PRODUCT_BUNDLE_IDENTIFIER: br.com.xpi.sample-app
-          CODE_SIGN_IDENTITY: "Apple Development: XP Investimentos Mobile (QG89Z2TBA9)"
-          PROVISIONING_PROFILE_SPECIFIER: "match Development br.com.xpi.sample-app"
-
 #==================================================================================================
 
 #==================================================================================================
@@ -112,9 +96,11 @@ settingGroups:
 
   commonSettings:
     base:
+      PRODUCT_BUNDLE_IDENTIFIER: br.com.microfrontendgenerator.sample-app
       CODE_SIGN_STYLE: "Manual"
-      DEVELOPMENT_TEAM: "A9VWLHHDRZ"
-      ENABLE_BITCODE: "YES"
+      DEVELOPMENT_TEAM: ""
+      PROVISIONING_PROFILE: "Wildcard"
+      ENABLE_BITCODE: "NO"
       TARGETED_DEVICE_FAMILY: "1"
       ARCHS: "$(ARCHS_STANDARD)"
       LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"

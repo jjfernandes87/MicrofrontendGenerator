@@ -60,7 +60,7 @@ extension FrameworkTemplates {
                 settings:
                   CODE_SIGN_STYLE: "Manual"
                   DEVELOPMENT_TEAM: ""
-                  PRODUCT_BUNDLE_IDENTIFIER: br.com.xpi.\(podName)
+                  PRODUCT_BUNDLE_IDENTIFIER: br.com.microfrontendgenerator.\(podName)
                   INFOPLIST_FILE: \(podName)/Info.plist
 
                   ENABLE_BITCODE: "NO"
