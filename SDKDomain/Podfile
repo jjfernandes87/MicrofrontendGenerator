@@ -1,0 +1,24 @@
+
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '11.0'
+
+inhibit_all_warnings!
+use_frameworks!
+
+workspace 'SDKDomain'
+
+target 'SDKDomain' do
+
+  pod 'SwiftLint'
+  pod 'SwiftGen', '6.5.1'
+
+  target 'SDKDomainTests' do
+      #pod 'Dependency', '~> 1.0.0'
+  end
+end
+
+target 'SampleApp' do
+  project 'SampleApp/SampleApp'
+  pod 'SDKDomain', :path => './'
+end

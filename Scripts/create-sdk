@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# Jump to repository root
+cd "$(git rev-parse --show-toplevel)"
+
+moduleName=$1
+moduleNameLowerCase=$(echo "$moduleName" | tr '[:upper:]' '[:lower:]')
+template="SDKDomain"
+
+# Verify if folder already exists
+[ ! -d "./$moduleName" ] && echo "Creating $moduleName module\n" || { echo "$moduleName folder already exists"; exit 1; }
+
+echo "Clonar a pasta SDKDomain e colar na raiz do projeto"
+echo "variables: moduleName: $moduleName | moduleNameLowerCase: $moduleNameLowerCase"
+
+cp -R "${template}" "$moduleName"
+cd "$moduleName"
+
+echo "Renomeando arquivos e pastas..."
+
+rename(){
+  while read oldName
+  do    
+    newName=$(echo $oldName | sed "s/SDKDomain/$moduleName/")
+    mv "$oldName" "$newName"
+  done
+}
+
+find . -type d -name "SDKDomain*" | rename
+find . -type f -name "SDKDomain*" | rename
+
+echo "Renomeando conteudo dos arquivos..."
+
+sed -i '' "s/SDKDomain/$moduleName/" project.yml
+
+sed -i '' "s/SDKDomain/$moduleName/" swiftgen.yml
+
+sed -i '' "s/SDKDomain/$moduleName/" Podfile
+
+sed -i '' "s/SDKDomain/$moduleName/" $moduleName.podspec
+
+sed -i '' "s/SDKDomain/$moduleName/" fastlane/Fastfile
+
+sed -i '' "s/SDKDomain/$moduleName/" fastlane/.env.default
+
+sed -i '' "s/SDKDomainProject/${moduleName}Project/" SampleApp/project.yml
+
+sed -i '' "s/SDKDomain/$moduleName/" SampleApp/project.yml
+
+sed -i '' "s/SDKDomain/$moduleName/" "${moduleName}Tests/${moduleName}InitializerTests.swift"
+
+sed -i '' "s/SDKDomain/$moduleName/" "${moduleName}Tests/${moduleName}InitializerTests.swift"
+
+sed -i '' "s/SDKDomain/$moduleName/" "$moduleName/Classes/${moduleName}Initializer.swift"
+
+sed -i '' "s/SDKDomain/$moduleName/" "SampleApp/SampleApp/ViewController.swift"
+
+sed -i '' "s/SDKDomain.helloWorld()/$moduleName.helloWorld()/" "SampleApp/SampleApp/ViewController.swift"
+
+echo "SDK criado com sucesso"
