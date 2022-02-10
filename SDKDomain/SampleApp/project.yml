@@ -20,7 +20,7 @@ options:
   xcodeVersion: "13.0"
   createIntermediateGroups: true
   deploymentTarget:
-    iOS: "11.0"
+    iOS: "12.0"
   
 configs:
   Release: release
@@ -45,15 +45,6 @@ targets:
 
       base:
         INFOPLIST_FILE: SampleApp/Info.plist
-      
-#==================================================================================================
-
-#==================================================================================================
-projectReferences:
-#==================================================================================================
-  SDKModuleProject:
-    path: ../SDKModule.xcodeproj
-#==================================================================================================
 
 #==================================================================================================
 schemes:
@@ -66,7 +57,6 @@ schemes:
     build:
       targets:
         SampleApp: [run, archive]
-        SDKModuleProject/SDKModule: [run]
       parallelizeBuild: true
       buildImplicitDependencies: true
     run:
@@ -74,20 +64,6 @@ schemes:
     archive:
       config: Release
 
-#____________________________________________________________
-# QA
-
-  QA:
-    build:
-      targets:
-        SampleApp: [run, archive]
-      parallelizeBuild: true
-      buildImplicitDependencies: true
-    run:
-      config: Debug
-    archive:
-      config: Adhoc
-      
 #==================================================================================================
 settingGroups:
 #==================================================================================================
@@ -99,7 +75,6 @@ settingGroups:
       PRODUCT_BUNDLE_IDENTIFIER: br.com.microfrontendgenerator.sample-app
       CODE_SIGN_STYLE: "Manual"
       DEVELOPMENT_TEAM: ""
-      PROVISIONING_PROFILE: "Wildcard"
       ENABLE_BITCODE: "NO"
       TARGETED_DEVICE_FAMILY: "1"
       ARCHS: "$(ARCHS_STANDARD)"

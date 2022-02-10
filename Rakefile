@@ -8,6 +8,8 @@ task :create_domain_sdk do
 
     name = ARGV[1]
     sh "cd Scripts && ./create-sdk #{name}"
+    sh "cd Scripts && ./setup #{name}"
+    sh "cd Output/#{name}/ && open #{name}.xcworkspace"
 end
 
 desc 'Create new SDK Microfeature'

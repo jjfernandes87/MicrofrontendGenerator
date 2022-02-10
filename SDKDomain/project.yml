@@ -21,7 +21,7 @@ options:
   createIntermediateGroups: true
   developmentLanguage: "pt-BR"
   deploymentTarget:
-    iOS: "11.0"
+    iOS: "12.0"
 
 configs:
   Debug: debug

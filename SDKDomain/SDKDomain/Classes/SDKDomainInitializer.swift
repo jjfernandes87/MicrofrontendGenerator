@@ -12,4 +12,5 @@ public final class SDKDomainInitializer {
         print(message)
         return message
     }
+    
 }
