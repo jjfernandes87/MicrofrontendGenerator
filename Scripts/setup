@@ -1,0 +1,216 @@
+#!/bin/bash
+
+# Script path
+scriptPath="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+projectName=$1
+user="$2"
+token="$3"
+
+# Helper funcs
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+#check if a received path exists, if it doesn't show error and stop script
+foundPath() {
+	pathToCheck="$1"
+	if [ -d  $pathToCheck ]; then
+		true
+	else
+		echo "Couldn't find path: $pathToCheck" && exit 0
+		false
+	fi
+}
+
+# Go to root
+goToMainPath() {
+    cd $scriptPath
+    cd ..
+}
+
+# remove files
+removeCurrentFiles() {
+    find ./ -name "*.DS_Store" -exec rm -rf {} \;
+    find ./ -name "*.lock" -exec rm -rf {} \;
+    find ./ -name "*.xcodeproj" -exec rm -rf {} \;
+    find ./ -name "*.xcworkspace" -exec rm -rf {} \;
+    find ./ -name "Pods" -exec rm -rf {} \;
+    find ./ -name "*.entitlements" -exec rm -rf {} \;
+}
+
+# pod install
+podInstall() {
+    bundle exec pod install
+}
+
+# create project
+createProject() {
+    local projectName=$1
+    goToMainPath
+    cd $projectName
+    echo .
+    echo ==================================================================
+    echo Preparing "$projectName" workspace
+    echo "Project path: $PWD"
+    echo ==================================================================
+    echo .
+	# Xcodegen for framework
+    xcodegen generate
+    echo .
+    # Xcodegen for sample app
+    cd SampleApp
+    xcodegen generate
+    echo .
+    echo ==================================================================
+    echo "$projectName" Pod Install
+    echo ==================================================================
+    echo .
+    podInstall
+    echo .
+    echo ==================================================================
+    echo "$projectName".xcworkspace created
+    echo ==================================================================
+    echo .
+}
+
+createAppProject() {
+    local projectName=$1
+    goToMainPath
+
+    cd App/$projectName
+    echo .
+    echo ==================================================================
+    echo Preparing "$projectName" workspace
+    echo "Project path: $PWD"
+    echo ==================================================================
+    echo .
+    # Xcodegen for framework
+    xcodegen generate
+    echo .
+    echo ==================================================================
+    echo "$projectName" Pod Install
+    echo ==================================================================
+    echo .
+    podInstall
+    echo .
+    echo ==================================================================
+    echo "$projectName".xcworkspace created
+    echo ==================================================================
+    echo .
+}
+
+prepareWorkspaceFiles() {
+    local projectName=$1
+    pathToResourcesFolder="Resources/Assets"
+
+    echo .
+    echo ==================================
+    echo "Prepare Workspace Files"
+    echo "projectName: $projectName"
+    echo ==================================
+    echo .
+
+    if foundPath $pathToResourcesFolder; then
+
+        echo Searching target config files
+		cd $pathToResourcesFolder
+
+        echo Seting Gemfile file
+		find ./ -name "Gemfile" -exec cp -R {} ../../$projectName \;
+
+        echo Seting .swiftlint.yml file
+		find ./ -name ".swiftlint.yml" -exec cp -R {} ../../$projectName \;
+
+        echo Seting xccov-to-sonarqube-generic file
+		find ./ -name "xccov-to-sonarqube-generic" -exec cp -R {} ../../$projectName/fastlane \;
+
+    fi
+
+    goToMainPath
+}
+
+prepareWhiteLabelWorkspaceFiles() {
+    local projectName=$1
+    pathToResourcesFolder="App/XP"
+
+    echo .
+    echo ==================================
+    echo "Prepare Workspace Files WhiteLabel"
+    echo "projectName: $projectName"
+    echo ==================================
+    echo .
+
+    if foundPath $pathToResourcesFolder; then
+
+        echo Searching target config files
+		cd $pathToResourcesFolder
+
+        echo Seting Podfile file
+		find ./ -name "Podfile" -exec cp -R {} ../../$projectName \;
+
+    fi
+
+    goToMainPath
+}
+
+#check if a received path exists, if it doesn't show error and stop script
+foundPath() {
+	pathToCheck="$1"
+	if [ -d  $pathToCheck ]; then
+		true
+	else
+		echo "Couldn't find path: $pathToCheck" && exit 0
+		false
+	fi
+}
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# Start setup
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# Script for sync templates, generate projects and install dependencies.
+echo .
+echo ==================================
+echo Starting setup
+echo "Script path: $scriptPath"
+echo ==================================
+echo .
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# Remove current project files
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+echo .
+echo ==================================================================
+echo Removing current project files
+echo ==================================================================
+echo .
+goToMainPath
+
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# # Create Projects
+# #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+if  [ "$projectName" == "XP" ] ||
+    [ "$projectName" == "Rico" ]; then
+
+    prepareWorkspaceFiles "App/$projectName"
+
+    cd App/$projectName
+    removeCurrentFiles
+	createAppProject $projectName
+
+elif  [ "$projectName" == "PJ" ] ||
+      [ "$projectName" == "Taler" ] ||
+      [ "$projectName" == "WHG" ]; then
+
+    prepareWorkspaceFiles "App/$projectName"
+    prepareWhiteLabelWorkspaceFiles "App/$projectName"
+
+    cd App/$projectName
+    removeCurrentFiles
+	createAppProject $projectName
+else
+    prepareWorkspaceFiles $projectName
+
+    cd $projectName
+    removeCurrentFiles
+	createProject $projectName
+fi
