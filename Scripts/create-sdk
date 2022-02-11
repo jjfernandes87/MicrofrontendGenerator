@@ -37,10 +37,10 @@ sed -i '' "s/SDKDomain/$moduleName/" Podfile
 sed -i '' "s/SDKDomain/$moduleName/" $moduleName.podspec
 sed -i '' "s/SDKDomain/$moduleName/" SampleApp/project.yml
 sed -i '' "s/SDKDomain/$moduleName/" "${moduleName}Tests/${moduleName}InitializerTests.swift"
-sed -i '' "s/SDKDomain/$moduleName/" "${moduleName}Tests/${moduleName}InitializerTests.swift"
 sed -i '' "s/SDKDomain/$moduleName/" "$moduleName/Classes/${moduleName}Initializer.swift"
-sed -i '' "s/SDKDomain/$moduleName/" "SampleApp/SampleApp/ViewController.swift"
-sed -i '' "s/SDKDomain.helloWorld()/$moduleName.helloWorld()/" "SampleApp/SampleApp/ViewController.swift"
+sed -i '' "s/SDKModule/$moduleName/" "SampleApp/SampleApp/ViewController.swift"
+sed -i '' "s/import SDKModule/import $moduleName/" "SampleApp/SampleApp/ViewController.swift"
+sed -i '' "s/SDKModuleInitializer.helloWorld()/${moduleName}Initializer.helloWorld()/" "SampleApp/SampleApp/ViewController.swift"
 
 echo ">> 4. Copiando para a pasta Output"
 
@@ -50,6 +50,6 @@ rm -rf "../$moduleName"
 echo "============================================================"
 echo "\n"
 echo "============================================================"
-echo "SDK criado com sucesso"
+echo "SDK $moduleName criado com sucesso"
 echo "============================================================"
 echo "\n"
