@@ -55,7 +55,7 @@ public final class CommandLineTool {
                 try SampleAppGenerator.generate(nil, podName, podFolder)
             }
 
-            try WorkspaceGenerator.generate(domainName, "", Folder.current)
+            try WorkspaceGenerator.generate(nil, domainName, Folder.current)
 
             for podName in podFeaturesName {
                 try WorkspaceSetup.generate(domainName, podName, Folder.current)
