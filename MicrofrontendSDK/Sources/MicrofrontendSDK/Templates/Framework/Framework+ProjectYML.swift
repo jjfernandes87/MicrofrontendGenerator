@@ -53,10 +53,6 @@ extension FrameworkTemplates {
                   - script: "${PODS_ROOT}/SwiftGen/bin/swiftgen"
                     name: SwiftGen
 
-                postBuildScripts:
-                  - script: "${PODS_ROOT}/SwiftLint/swiftlint"
-                    name: SwiftLint  
-
                 settings:
                   CODE_SIGN_STYLE: "Manual"
                   DEVELOPMENT_TEAM: ""

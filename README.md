@@ -48,14 +48,20 @@ cd ../ && rake create_domain_sdk [nome_do_dominio]
 cd Scripts && ./tools
 ```
 
-2. Criação do MicrofrontendSDK
+2.	Instalação do ambiente
+
 ```
-cd ../ && rake create_microfrontend_sdk
+cd ../ && rake install
 ```
 
-3. Responder as perguntas
+3. Criação do MicrofrontendSDK
+```
+rake create_microfrontend_sdk
+```
 
-4. Projeto é criado na raiz do repo, a partir daqui, você pode copiar e colocar no seu projeto iOS
+4. Responder as perguntas
+
+5. Projeto é criado na raiz do repo, a partir daqui, você pode copiar e colocar no seu projeto iOS
 
 # Throubleshoot
 - Em alguns casos será necessário rodar o comando `sudo`

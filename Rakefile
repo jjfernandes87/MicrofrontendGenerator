@@ -1,5 +1,11 @@
 require 'rake'
 
+# Install
+desc 'Create new SDK'
+task :install do
+    sh "cd MicrofrontendSDK && make install "
+end
+
 # New SDK
 
 desc 'Create new SDK'
@@ -25,10 +31,10 @@ task :create_microfrontend_sdk do
         
         STDOUT.puts "3. Digite seus micro frontends, separado por virgula (ex: Feature1,Feature2)"
         inputMicroFrontendNames = STDIN.gets.strip
-        sh "cd MicrofrontendSDK && make install && featureGen #{inputDomain} #{inputMicroFrontendNames}"
+        sh "cd MicrofrontendSDK && featureGen #{inputDomain} #{inputMicroFrontendNames}"
 
     elsif inputMicroFrontend == "n"
-        sh "cd MicrofrontendSDK && make install && featureGen #{inputDomain}"
+        sh "cd MicrofrontendSDK && featureGen #{inputDomain}"
     else
         sh "echo Command not found"
     end

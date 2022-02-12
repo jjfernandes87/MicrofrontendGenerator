@@ -15,6 +15,10 @@ class FrameworkGenerator: GeneratorType {
             let projectYML = try rootFolder.createFile(named: "project.yml")
             try projectYML.write(FrameworkTemplates.projectYML(podName))
             log(projectYML)
+
+            let gemfile = try rootFolder.createFile(named: "Gemfile")
+            try gemfile.write(FrameworkTemplates.gemfile())
+            log(gemfile)
             
             let podfile = try rootFolder.createFile(named: "Podfile")
             try podfile.write(FrameworkTemplates.podfile(podName))

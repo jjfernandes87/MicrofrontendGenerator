@@ -15,7 +15,6 @@ extension FrameworkTemplates {
             workspace '\(podName)'
 
             target '\(podName)' do
-              pod 'SwiftLint'
               pod 'SwiftGen', '6.5.1'  
               pod '\(podName)Interface', :path => '../\(podName)Interface'
 

@@ -2,7 +2,7 @@ import Foundation
 
 extension WorkspaceSetupTemplates {
     
-    static func script(_ domainName: String,_ podName: String) -> String {
+    static func script(_ domainName: String, _ podName: String) -> String {
         let template = {
             """
             #!/bin/bash
@@ -11,10 +11,13 @@ extension WorkspaceSetupTemplates {
             cd "$(git rev-parse --show-toplevel)"
 
             # Setup project
-            sh "cd Scripts && ./setup #{domainName}/#{podName}"
+            cd Scripts && ./setup \(domainName)/\(podName)
+
+            # Jump to repository root
+            cd "$(git rev-parse --show-toplevel)"
 
             # Open xcworkspace
-            sh "cd Output/#{domainName}/#{podName}/ && open #{podName}.xcworkspace"
+            cd Output/\(domainName)/\(podName)/ && open \(podName).xcworkspace
             
             #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             """

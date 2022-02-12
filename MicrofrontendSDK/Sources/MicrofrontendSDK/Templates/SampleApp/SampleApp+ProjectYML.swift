@@ -54,13 +54,6 @@ extension SampleAppTemplates {
                     INFOPLIST_FILE: SampleApp/Info.plist
 
             #==================================================================================================
-            projectReferences:
-            #==================================================================================================
-              \(podName)Project:
-                path: ../\(podName).xcodeproj
-            #==================================================================================================
-
-            #==================================================================================================
             schemes:
             #==================================================================================================
 
@@ -71,7 +64,6 @@ extension SampleAppTemplates {
                 build:
                   targets:
                     SampleApp: [run, archive]
-                    \(podName)Project/\(podName): [run]
                   parallelizeBuild: true
                   buildImplicitDependencies: true
                 run:
