@@ -7,7 +7,7 @@ class WorkspaceSetup: GeneratorType {
         do {
             
             let script = try rootFolder.createFile(named: "genSetup.sh")
-            try script.write(WorkspaceSetupTemplates.script(domainName, podName))
+            try script.write(WorkspaceSetupTemplates.script(domainName ?? "", podName))
             
             let terminalTask = Process()
             terminalTask.launchPath = "/bin/bash"
