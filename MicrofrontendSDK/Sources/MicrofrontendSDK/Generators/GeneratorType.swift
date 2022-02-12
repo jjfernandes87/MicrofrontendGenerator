@@ -3,7 +3,7 @@ import Files
 
 protocol GeneratorType: AnyObject {
     
-    static func generate(_ podName: String, _ rootFolder: Folder) throws
+    static func generate(_ domainName: String?, _ podName: String, _ rootFolder: Folder) throws
 }
 
 extension GeneratorType {

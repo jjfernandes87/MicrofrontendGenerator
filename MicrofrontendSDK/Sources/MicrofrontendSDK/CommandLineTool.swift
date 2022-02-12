@@ -24,18 +24,20 @@ public final class CommandLineTool {
 
             guard let podFeaturesName = podFeaturesName?.components(separatedBy: ","), podFeaturesName.count > 0 else {
                 
-                let domainFolder = try Folder.current.createSubfolder(named: domainName)
-                let podFolder = try domainFolder.createSubfolder(named: domainName)
-                let interfaceFolder = try domainFolder.createSubfolder(named: "\(domainName)Interface")
-                let assemblyFolder = try domainFolder.createSubfolder(named: "\(domainName)Assembly")
+                let podName = domainName
                 
-                try FrameworkGenerator.generate(domainName, podFolder)
-                try InterfaceGenerator.generate(domainName, interfaceFolder)
-                try AssemblyGenerator.generate(domainName, assemblyFolder)
-                try SampleAppGenerator.generate(domainName, podFolder)
-                try WorkspaceGenerator.generate(domainName, Folder.current)
+                let domainFolder = try Folder.current.createSubfolder(named: podName)
+                let podFolder = try domainFolder.createSubfolder(named: podName)
+                let interfaceFolder = try domainFolder.createSubfolder(named: "\(podName)Interface")
+                let assemblyFolder = try domainFolder.createSubfolder(named: "\(podName)Assembly")
                 
-                logEnd(domainName)
+                try FrameworkGenerator.generate(nil, podName, podFolder)
+                try InterfaceGenerator.generate(nil, podName, interfaceFolder)
+                try AssemblyGenerator.generate(nil, podName, assemblyFolder)
+                try SampleAppGenerator.generate(nil, podName, podFolder)
+                try WorkspaceGenerator.generate(nil, podName, Folder.current)
+                
+                logEnd(podName)
                 
                 return
             }
@@ -47,13 +49,17 @@ public final class CommandLineTool {
                 let interfaceFolder = try domainFolder.createSubfolder(named: "\(podName)Interface")
                 let assemblyFolder = try domainFolder.createSubfolder(named: "\(podName)Assembly")
                 
-                try FrameworkGenerator.generate(podName, podFolder)
-                try InterfaceGenerator.generate(podName, interfaceFolder)
-                try AssemblyGenerator.generate(podName, assemblyFolder)
-                try SampleAppGenerator.generate(podName, podFolder)
+                try FrameworkGenerator.generate(nil, podName, podFolder)
+                try InterfaceGenerator.generate(nil, podName, interfaceFolder)
+                try AssemblyGenerator.generate(nil, podName, assemblyFolder)
+                try SampleAppGenerator.generate(nil, podName, podFolder)
             }
 
-            try WorkspaceGenerator.generate(domainName, Folder.current)
+            try WorkspaceGenerator.generate(domainName, "", Folder.current)
+
+            for podName in podFeaturesName {
+                try WorkspaceSetup.generate(domainName, podName, Folder.current)
+            }
 
             logEnd(domainName)
 

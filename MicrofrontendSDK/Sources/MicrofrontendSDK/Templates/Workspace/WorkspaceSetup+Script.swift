@@ -1,8 +1,8 @@
 import Foundation
 
-extension WorkspaceTemplates {
+extension WorkspaceSetupTemplates {
     
-    static func script(_ podName: String) -> String {
+    static func script(_ domainName: String,_ podName: String) -> String {
         let template = {
             """
             #!/bin/bash
@@ -10,17 +10,11 @@ extension WorkspaceTemplates {
             # Jump to repository root
             cd "$(git rev-parse --show-toplevel)"
 
-            # Verify if folder already exists
-            if [ ! -d "./\(podName)" ]; then
-                echo ">> Creating \(podName) module in the root\n"
-                cp -R "MicrofrontendSDK/\(podName)" "\(podName)"
-            else
-                echo ">> \(podName) folder already exists";
-            fi
+            # Setup project
+            sh "cd Scripts && ./setup #{domainName}/#{podName}"
 
-            # Check the file is exists or not
-            rm -rf "MicrofrontendSDK/\(podName)"
-            echo ">> \(podName) was removed in the MicrofrontendSDK"
+            # Open xcworkspace
+            sh "cd Output/#{domainName}/#{podName}/ && open #{podName}.xcworkspace"
             
             #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             """

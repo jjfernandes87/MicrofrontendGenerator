@@ -7,6 +7,7 @@ public enum SDKMicrofeatureErrors: Swift.Error {
     case InterfaceCreationFailure
     case AssemblyCreationFailure
     case WorkspaceGenerationFailure
+    case WorkspaceSetupFailure
 }
 
 public struct SampleAppTemplates {}
@@ -14,6 +15,7 @@ public struct FrameworkTemplates {}
 public struct InterfaceTemplates {}
 public struct AssemblyTemplates {}
 public struct WorkspaceTemplates {}
+public struct WorkspaceSetupTemplates {}
 
 public extension CommandLineTool {
     

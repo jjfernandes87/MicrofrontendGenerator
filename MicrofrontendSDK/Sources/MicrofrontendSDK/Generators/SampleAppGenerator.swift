@@ -3,7 +3,7 @@ import Files
 
 class SampleAppGenerator: GeneratorType {
     
-    static func generate(_ podName: String, _ rootFolder: Folder) throws {
+    static func generate(_ domainName: String?, _ podName: String, _ rootFolder: Folder) throws {
         do {
             
             log("Creating SampleApp files")
