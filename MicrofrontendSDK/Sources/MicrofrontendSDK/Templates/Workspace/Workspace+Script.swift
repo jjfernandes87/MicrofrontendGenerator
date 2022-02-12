@@ -11,9 +11,9 @@ extension WorkspaceTemplates {
             cd "$(git rev-parse --show-toplevel)"
 
             # Verify if folder already exists
-            if [ ! -d "./\(podName)" ]; then
+            if [ ! -d "./Output/\(podName)" ]; then
                 echo ">> Creating \(podName) module in the root\n"
-                cp -R "MicrofrontendSDK/\(podName)" "\(podName)"
+                cp -R "MicrofrontendSDK/\(podName)" "Output/\(podName)"
             else
                 echo ">> \(podName) folder already exists";
             fi
